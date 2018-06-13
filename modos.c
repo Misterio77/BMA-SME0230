@@ -81,7 +81,7 @@ void jogada_interativa(int jogador, int rodada, int lances, int risco_x[7][7], i
 
 		if (sucesso == 1) {
 			printf("\n...\n\n");
-			sleep(1);
+			sleep(4);
 		}
 	} while (sucesso); //Repetir a verificação, até que seja válida (Quando retornar 0)
 
