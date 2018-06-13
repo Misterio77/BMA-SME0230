@@ -46,8 +46,8 @@ int main() {
 		printf("%s |  | ) (-   %s__) | ) (_| |( (-%s   (_| | ) (_|   |_ | ) (-   |  | |_| | ) |_ (- | %s\n", CYAN, GREEN, CYAN, RESET);
 		printf("%s             %s                 %s                                                  %s\n", CYAN, GREEN, CYAN, RESET);
 		printf("Bem vindo! :3\n\n");
-		printf("Regras básicas:\n");
-		printf("%s1 Jogador%s:   >  %sPlayer vs I.A.%s  < \n", CYAN, RESET, F_CYAN, RESET);
+		printf("%s0 Jogadores%s: >   %sI.A. vs I.A.%s   < \n\n", MAGENTA, RESET, F_MAGENTA, RESET);
+		printf("%s1 Jogador%s  : >  %sPlayer vs I.A.%s  < \n", CYAN, RESET, F_CYAN, RESET);
 		printf("%s2 Jogadores%s: > %sPlayer vs Player%s < \n\n", YELLOW, RESET, F_YELLOW, RESET);
 		printf("Digite o número de jogadores:\n");
 		printf("Ou R, para ler as regras.\n");
@@ -56,9 +56,9 @@ int main() {
 		modo = tolower(modo); //Deixar minúsculo
 		fgets(lixo, 1000, stdin); //Ignora qualquer input extra que o usuário digitar
 
+		if (modo == '0') alone();
 		if (modo == '1') singleplayer();
 		if (modo == '2') multiplayer();
-		if (modo == '3') alone();
 		if (modo == 'r') {
 			printf("\n\n");
 			printf("O jogo consiste em 2 rodadas e é jogado em duplas,\n");

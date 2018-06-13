@@ -8,6 +8,7 @@ Rafaela Delgado Nascimento  10818904
 #include <ctype.h>
 #include <time.h>
 #include <stdlib.h>
+ #include<unistd.h> 
 
 #include "modos.h"
 #include "funcoes.h"
@@ -47,9 +48,8 @@ void jogada_interativa(int jogador, int rodada, int lances, int risco_x[7][7], i
 
 		if (jogador == 1) printf("%sJogador 1 é a cobra!%s \n", F_BLUE,  RESET);
 		if (jogador == 2) printf("%sJogador 2 é a cobra!%s \n", F_YELLOW, RESET);
-		printf("\n");
-		printf("(Aperte enter para continuar)\n");
-		fgets(lixo, 1000, stdin); //Ignora qualquer input extra que o usuário digitar	
+		printf("\n...\n\n");
+		sleep(1);
 	}
 
 	do {
@@ -66,10 +66,8 @@ void jogada_interativa(int jogador, int rodada, int lances, int risco_x[7][7], i
 		scanf("%i %i", &coord.x, &coord.y); //Receber coordenadas
 		getchar();
 
-		printf("\n");
 		printf("E agora, a %sdireção%s do traçado.\n", GREEN, RESET);
-		printf("(Direita, Esquerda, Cima ou Baixo.) ");
-		printf("(Palavra toda ou inicial.)\n");
+		printf("(Utilize WASD.)\n");
 
 		printf(">");
 		scanf(" %c", &(coord).d); //Receber direção
@@ -82,8 +80,8 @@ void jogada_interativa(int jogador, int rodada, int lances, int risco_x[7][7], i
 		sucesso = verificar_jogada(coord, lances, 1, risco_x, risco_y);
 
 		if (sucesso == 1) {
-			printf("(Aperte enter para continuar)\n");
-			fgets(lixo, 1000, stdin); //Ignora qualquer input extra que o usuário digitar
+			printf("\n...\n\n");
+			sleep(1);
 		}
 	} while (sucesso); //Repetir a verificação, até que seja válida (Quando retornar 0)
 
@@ -99,7 +97,6 @@ void jogada_interativa(int jogador, int rodada, int lances, int risco_x[7][7], i
 void jogada_automatica(int jogador, int rodada, int lances, int risco_x[7][7], int risco_y[7][7]) {
 	jogada coord;
 	int aleatorio_x, aleatorio_y, aleatorio_d;
-	char lixo[1000];
 
 	//Avisar quem é a cobra, caso seja o primeiro lance
 	if (lances == 0) {
@@ -107,9 +104,8 @@ void jogada_automatica(int jogador, int rodada, int lances, int risco_x[7][7], i
 		printf("Lance: %i\n\n", lances+1); //Imprimir lance atual
 		if (jogador == 1) printf("%sJogador 1 (PC) é a cobra!%s \n", F_BLUE,  RESET);
 		if (jogador == 2) printf("%sJogador 2 (PC) é a cobra!%s \n", F_YELLOW, RESET);
-		printf("\n");
-		printf("(Aperte enter para continuar)\n");
-		fgets(lixo, 1000, stdin); //Ignora qualquer input extra que o usuário digitar	
+		printf("\n...\n\n");
+		sleep(1);
 	}
 
 	imprimir_campo(risco_x, risco_y);
@@ -122,7 +118,7 @@ void jogada_automatica(int jogador, int rodada, int lances, int risco_x[7][7], i
 	if (lances == 0) {
 		coord.x = 4;
 		coord.y = 4;
-		coord.d = 'b';
+		coord.d = 's';
 	}
 	
 	else {
@@ -135,16 +131,16 @@ void jogada_automatica(int jogador, int rodada, int lances, int risco_x[7][7], i
 			coord.y = aleatorio_y;
 
 			if (aleatorio_d == 1) {
-				coord.d = 'e';
+				coord.d = 'a';
 			}
 			else if (aleatorio_d == 2) {
-				coord.d = 'c';
+				coord.d = 'w';
 			}
 			else if (aleatorio_d == 3) {
 				coord.d = 'd';
 			}
 			else {
-				coord.d = 'b';
+				coord.d = 's';
 			}
 		} while (verificar_jogada(coord, lances, 0, risco_x, risco_y));
 	}
@@ -183,7 +179,6 @@ void singleplayer() {
 	  significa a última jogada feita (Assim, mostramos de forma destacada)
 	*/
 	int pontos_1, pontos_2, lances;
-	char lixo[1000];
 	
 	//Rodada 1 ==========
 	lances = 0;
@@ -194,11 +189,11 @@ void singleplayer() {
 	do {
 		jogada_interativa(1, 1, lances, risco_x, risco_y);
 		lances++;
-		printf("(Aperte enter para continuar)\n");
-		fgets(lixo, 1000, stdin); //Ignora qualquer input extra que o usuário digitar
 		if (verificar_fim(risco_x, risco_y)) break;
 		
 		jogada_automatica(2, 1, lances, risco_x, risco_y);
+		printf("\n...\n\n");
+		sleep(1);
 		lances++;
 		if (verificar_fim(risco_x, risco_y)) break;
 		
@@ -210,8 +205,8 @@ void singleplayer() {
 	
 	printf("%sFim da rodada 1.%s\n", F_MAGENTA, RESET);
 	printf("Jogador 1 marcou %s%i%s pontos!\n", GREEN, lances, RESET);
-	printf("(Aperte enter para continuar)\n");
-	fgets(lixo, 1000, stdin); //Ignora qualquer input extra que o usuário digitar
+	printf("\n...\n\n");
+	sleep(1);
 	
 	//Rodada 2 ==========
 	lances = 0;
@@ -222,13 +217,13 @@ void singleplayer() {
 	//Loopear pelas jogadas, quebrar quando não houver válidas
 	do {
 		jogada_automatica(2, 2, lances, risco_x, risco_y);
+		printf("\n...\n\n");
+		sleep(1);
 		lances++;
 		if (verificar_fim(risco_x, risco_y)) break;
 		
 		jogada_interativa(1, 2, lances, risco_x, risco_y);
 		lances++;
-		printf("(Aperte enter para continuar)\n");
-		fgets(lixo, 1000, stdin); //Ignora qualquer input extra que o usuário digitar
 		if (verificar_fim(risco_x, risco_y)) break;
 		
 	} while (1);
@@ -239,8 +234,8 @@ void singleplayer() {
 	
 	printf("%sFim da rodada 2.%s\n", F_MAGENTA, RESET);
 	printf("Jogador 2 marcou %s%i%s pontos!\n", GREEN, lances, RESET);
-	printf("(Aperte enter para continuar)\n");
-	fgets(lixo, 1000, stdin); //Ignora qualquer input extra que o usuário digitar
+	printf("\n...\n\n");
+	sleep(1);
 
 	//Fim do jogo ================
 
@@ -256,7 +251,6 @@ void multiplayer() {
 	  significa a última jogada feita (Assim, mostramos de forma destacada)
 	*/
 	int pontos_1, pontos_2, lances;
-	char lixo[1000];
 	
 	//Rodada 1 ==========
 	lances = 0;
@@ -267,14 +261,10 @@ void multiplayer() {
 	do {
 		jogada_interativa(1, 1, lances, risco_x, risco_y);
 		lances++;
-		printf("(Aperte enter para continuar)\n");
-		fgets(lixo, 1000, stdin); //Ignora qualquer input extra que o usuário digitar
 		if (verificar_fim(risco_x, risco_y)) break;
 		
 		jogada_interativa(2, 1, lances, risco_x, risco_y);
 		lances++;
-		printf("(Aperte enter para continuar)\n");
-		fgets(lixo, 1000, stdin); //Ignora qualquer input extra que o usuário digitar
 		if (verificar_fim(risco_x, risco_y)) break;
 		
 	} while (1);
@@ -285,8 +275,8 @@ void multiplayer() {
 	
 	printf("%sFim da rodada 1.%s\n", F_MAGENTA, RESET);
 	printf("Jogador 1 marcou %s%i%s pontos!\n", GREEN, lances, RESET);
-	printf("(Aperte enter para continuar)\n");
-	fgets(lixo, 1000, stdin); //Ignora qualquer input extra que o usuário digitar
+	printf("\n...\n\n");
+	sleep(1);
 	
 	//Rodada 2 ==========
 	lances = 0;
@@ -298,14 +288,10 @@ void multiplayer() {
 	do {
 		jogada_interativa(2, 2, lances, risco_x, risco_y);
 		lances++;
-		printf("(Aperte enter para continuar)\n");
-		fgets(lixo, 1000, stdin); //Ignora qualquer input extra que o usuário digitar
 		if (verificar_fim(risco_x, risco_y)) break;
 		
 		jogada_interativa(1, 2, lances, risco_x, risco_y);
 		lances++;
-		printf("(Aperte enter para continuar)\n");
-		fgets(lixo, 1000, stdin); //Ignora qualquer input extra que o usuário digitar
 		if (verificar_fim(risco_x, risco_y)) break;
 		
 	} while (1);
@@ -316,8 +302,8 @@ void multiplayer() {
 	
 	printf("%sFim da rodada 2.%s\n", F_MAGENTA, RESET);
 	printf("Jogador 2 marcou %s%i%s pontos!\n", GREEN, lances, RESET);
-	printf("(Aperte enter para continuar)\n");
-	fgets(lixo, 1000, stdin); //Ignora qualquer input extra que o usuário digitar
+	printf("\n...\n\n");
+	sleep(1);
 
 	//Fim do jogo ================
 
@@ -343,15 +329,15 @@ void alone() {
 	//Loopear pelas jogadas, quebrar quando não houver válidas
 	do {
 		jogada_automatica(1, 1, lances, risco_x, risco_y);
+		printf("\n...\n\n");
+		sleep(1);
 		lances++;
-		printf("(Aperte enter para continuar)\n");
-		fgets(lixo, 1000, stdin);
 		if (verificar_fim(risco_x, risco_y)) break;
-		
+
 		jogada_automatica(2, 1, lances, risco_x, risco_y);
+		printf("\n...\n\n");
+		sleep(1);
 		lances++;
-		printf("(Aperte enter para continuar)\n");
-		fgets(lixo, 1000, stdin);
 		if (verificar_fim(risco_x, risco_y)) break;
 		
 	} while (1);
@@ -362,8 +348,8 @@ void alone() {
 	
 	printf("%sFim da rodada 1.%s\n", F_MAGENTA, RESET);
 	printf("Jogador 1 marcou %s%i%s pontos!\n", GREEN, lances, RESET);
-	printf("(Aperte enter para continuar)\n");
-	fgets(lixo, 1000, stdin); //Ignora qualquer input extra que o usuário digitar
+	printf("\n...\n\n");
+	sleep(1);
 	
 	//Rodada 2 ==========
 	lances = 0;
@@ -374,15 +360,15 @@ void alone() {
 	//Loopear pelas jogadas, quebrar quando não houver válidas
 	do {
 		jogada_automatica(2, 2, lances, risco_x, risco_y);
+		printf("\n...\n\n");
+		sleep(1);
 		lances++;
-		printf("(Aperte enter para continuar)\n");
-		fgets(lixo, 1000, stdin);
 		if (verificar_fim(risco_x, risco_y)) break;
 		
 		jogada_automatica(1, 2, lances, risco_x, risco_y);
+		printf("\n...\n\n");
+		sleep(1);
 		lances++;
-		printf("(Aperte enter para continuar)\n");
-		fgets(lixo, 1000, stdin);
 		if (verificar_fim(risco_x, risco_y)) break;
 		
 	} while (1);

@@ -153,17 +153,17 @@ int verificar_jogada(jogada coord, int lances, int erros, int risco_x[7][7], int
 	}
 
 	//Verificar se a direção é valida (Apenas c, b, d ou e)
-	if ((coord).d != 'c' && (coord).d != 'b' && (coord).d != 'd' && (coord).d != 'e') {
+	if ((coord).d != 'w' && (coord).d != 's' && (coord).d != 'd' && (coord).d != 'a') {
 		if (erros) printf("%sErro! Digite uma direção válida!%s\n", F_RED, RESET);
 		return(1);
 	}
 
 	//Verificar se a casa destino não ultrapassa o campo
-	if ((coord).d == 'c'&& (coord).y == 1) {
+	if ((coord).d == 'w'&& (coord).y == 1) {
 		if (erros) printf("%sErro! Não existe casa acima.%s\n", F_RED, RESET);
 		return(1);
 	}
-	if ((coord).d == 'b'&& (coord).y == 7) {
+	if ((coord).d == 's'&& (coord).y == 7) {
 		if (erros) printf("%sErro! Não existe casa abaixo.%s\n", F_RED, RESET);
 		return(1);
 	}
@@ -171,7 +171,7 @@ int verificar_jogada(jogada coord, int lances, int erros, int risco_x[7][7], int
 		if (erros) printf("%sErro! Não existe casa à direita.%s\n", F_RED, RESET);
 		return(1);
 	}
-	if ((coord).d == 'e'&& (coord).x == 1) {
+	if ((coord).d == 'a'&& (coord).x == 1) {
 		if (erros) printf("%sErro! Não existe casa à esquerda.%s\n", F_RED, RESET);
 		return(1);
 	}
@@ -187,14 +187,14 @@ int verificar_jogada(jogada coord, int lances, int erros, int risco_x[7][7], int
 
 	//Verificar se a casa destino não faz parte da cobra
 	//Ou seja, se ela tem exatamente 0 riscos adjacentes.
-	if ((coord).d == 'c') {
+	if ((coord).d == 'w') {
 		(coord).y--;
 		if (verificar_adjacentes(coord, risco_x, risco_y) != 0) {
 			if (erros) printf("%sErro! A casa acima não está livre.%s\n", F_RED, RESET);
 			return(1);
 		}
 	}
-	else if ((coord).d == 'b') {
+	else if ((coord).d == 's') {
 		(coord).y++;
 		if (verificar_adjacentes(coord, risco_x, risco_y) != 0) {
 			if (erros) printf("%sErro! A casa abaixo não está livre.%s\n", F_RED, RESET);
@@ -208,7 +208,7 @@ int verificar_jogada(jogada coord, int lances, int erros, int risco_x[7][7], int
 			return(1);
 		}
 	}
-	else if ((coord).d == 'e') {
+	else if ((coord).d == 'a') {
 		(coord).x--;
 		if (verificar_adjacentes(coord, risco_x, risco_y) != 0) {
 			if (erros) printf("%sErro! A casa à esquerda não está livre.%s\n", F_RED, RESET);
@@ -235,12 +235,12 @@ void realizar_jogada(jogada coord, int risco_x[7][7], int risco_y[7][7]) {
 		}
 	}
 
-	if ((coord).d == 'c') {
+	if ((coord).d == 'w') {
 		//Guardar no vetor de riscos verticais, acima da posição
 		//Ex: Jogada '5 5 c' equivale a risco_y[4][3]
 		risco_y[(coord).x-1][(coord).y-2] = 2;
 	}
-	else if ((coord).d == 'b') {
+	else if ((coord).d == 's') {
 		//Guardar no vetor de riscos verticais, abaixo da posição
 		//Ex: Jogada '5 5 b' equivale a risco_y[4][4]
 		risco_y[(coord).x-1][(coord).y-1] = 2;
@@ -250,7 +250,7 @@ void realizar_jogada(jogada coord, int risco_x[7][7], int risco_y[7][7]) {
 		//Ex: Jogada '5 5 d' equivale a risco_x[4][4]
 		risco_x[(coord).x-1][(coord).y-1] = 2;
 	}
-	else if ((coord).d == 'e') {
+	else if ((coord).d == 'a') {
 		//Guardar no vetor de riscos horizontais, à esquerda da posição
 		//Ex: Jogada '5 5 e' equivale a risco_x[3][4]
 		risco_x[(coord).x-2][(coord).y-1] = 2;
@@ -292,10 +292,10 @@ int verificar_fim(int risco_x[7][7], int risco_y[7][7]) {
 			}
 		}
 		//Loopear (coord).d
-		if      ((coord).d == 'd') (coord).d = 'c';
-		else if ((coord).d == 'c') (coord).d = 'e';
-		else if ((coord).d == 'e') (coord).d = 'b';
-		else if ((coord).d == 'b') (coord).d = 'd';
+		if      ((coord).d == 'd') (coord).d = 'w';
+		else if ((coord).d == 'w') (coord).d = 'a';
+		else if ((coord).d == 'a') (coord).d = 's';
+		else if ((coord).d == 's') (coord).d = 'd';
 	}
 
 	//Caso nenhuma jogada seja válida, retornar 1
