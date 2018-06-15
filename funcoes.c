@@ -301,3 +301,23 @@ int verificar_fim(int risco_x[7][7], int risco_y[7][7]) {
 	//Caso nenhuma jogada seja válida, retornar 1
 	return(1);
 }
+
+void ganhador(int pontos_1, int pontos_2) {
+	printf("\e[1;1H\e[2J");
+	printf("%s___          %s __              %s                                                  %s\n", CYAN, GREEN, CYAN, RESET);
+	printf("%s |  |_   _   %s(_   _   _  |   _%s    _   _   _|   |_ |_   _   |__|      _  |_  _  _%s\n", CYAN, GREEN, CYAN, RESET);
+	printf("%s |  | ) (-   %s__) | ) (_| |( (-%s   (_| | ) (_|   |_ | ) (-   |  | |_| | ) |_ (- | %s\n", CYAN, GREEN, CYAN, RESET);
+	printf("%s             %s                 %s                                                  %s\n", CYAN, GREEN, CYAN, RESET);
+	if (pontos_1 > pontos_2) {
+		printf("Jogador 1 venceu!\n");
+	}
+	else if (pontos_2 > pontos_1) {
+		printf("Jogador 2 venceu!\n");
+	}
+	else {
+		printf("Empate!\n");
+	}
+	printf("\nPontuação:\n");
+	printf("%s%i%s x %s%i%s\n", CYAN, pontos_1, RESET, GREEN, pontos_2, RESET);
+	printf("\n");
+}
