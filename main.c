@@ -35,7 +35,7 @@ Rafaela Delgado Nascimento  10818904
 /*Menu inicial*/
 int main() {
 	char jogar_novamente;
-	char lixo[1000], modo;
+	char modo;
 
 	srand(time(NULL));
 
@@ -54,13 +54,12 @@ int main() {
 		printf(">");
 		scanf(" %c", &modo);
 		modo = tolower(modo); //Deixar minúsculo
-		fgets(lixo, 1000, stdin); //Ignora qualquer input extra que o usuário digitar
 
 		if (modo == '0') alone();
 		if (modo == '1') singleplayer();
 		if (modo == '2') multiplayer();
 		if (modo == 'r') {
-			printf("\n\n");
+			printf("\n");
 			printf("O jogo consiste em 2 rodadas e é jogado em duplas,\n");
 			printf("sendo um jogador a cobra, e o outro o caçador.\n");
 			printf("As funções se invertem na segunda rodada, vencendo o\n");
@@ -72,10 +71,9 @@ int main() {
 			printf("tentar evitar que a cobra se expanda, barrando possíveis\n");
 			printf("jogadas da cobra, finalizando o jogo cedo.\n");
 		}
-
 		printf("\n\nRetornar ao menu? (Y/n)\n");
 		printf(">");
-		scanf("%c", &jogar_novamente);
+		scanf(" %c", &jogar_novamente);
 		jogar_novamente = tolower(jogar_novamente); //Transformar maiúsculas em minúsculas
 	} while (jogar_novamente != 'n');
 

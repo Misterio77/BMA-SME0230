@@ -96,7 +96,6 @@ void jogada_interativa(int jogador, int rodada, int lances, int risco_x[7][7], i
 
 void jogada_automatica(int jogador, int rodada, int lances, int risco_x[7][7], int risco_y[7][7]) {
 	jogada coord;
-	char direcoes[4] = "wasd";
 
 	//Avisar quem é a cobra, caso seja o primeiro lance
 	if (lances == 0) {
@@ -123,7 +122,7 @@ void jogada_automatica(int jogador, int rodada, int lances, int risco_x[7][7], i
 	
 	else {
 		do {
-			coord.d = direcoes[(rand() % (4))];
+			coord.d = "wasd"[(rand() % (4))];
 			coord.x = 1 + (rand() % (7));
 			coord.y = 1 + (rand() % (7));
 
