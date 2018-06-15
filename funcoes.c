@@ -115,23 +115,23 @@ int verificar_adjacentes(jogada coord, int risco_x[7][7], int risco_y[7][7]) {
 	int adjacentes = 0;
 
 	//Verificar casa acima
-	if (risco_y[(coord).x-1][(coord).y-2] != 0 && (coord).y > 1) {
+	if ((coord).y > 1 && risco_y[(coord).x-1][(coord).y-2] != 0) {
 		adjacentes++;
 	}
 
 	//Verificar casa abaixo
-	if (risco_y[(coord).x-1][(coord).y-1] != 0 && (coord).y < 7) {
+	if ((coord).y < 7 && risco_y[(coord).x-1][(coord).y-1] != 0) {
 		adjacentes++;
 	}
 
 	//Verificar casa à direita
-	if (risco_x[(coord).x-1][(coord).y-1] != 0 && (coord).x < 7) {
+	if ((coord).x < 7 && risco_x[(coord).x-1][(coord).y-1] != 0) {
 		adjacentes++;
 
 	}
 
 	//Verificar casa à esquerda
-	if (risco_x[(coord).x-2][(coord).y-1] != 0 && (coord).x > 1) {
+	if ((coord).x > 1 && risco_x[(coord).x-2][(coord).y-1] != 0) {
 		adjacentes++;
 	}
 
